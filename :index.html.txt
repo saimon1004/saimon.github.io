@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>株式会社SAIMON｜AIで人と企業の可能性を拡張する</title>
+  <meta name="description" content="株式会社SAIMONはAI研修・採用コンサルティング・AIコンテンツ制作を通じて、企業の成長と人の創造力を支援します。">
+  <link rel="stylesheet" href="css/style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+  <header class="site-header">
+    <div class="container">
+      <h1 class="logo"><a href="index.html">株式会社SAIMON</a></h1>
+      <nav>
+        <ul>
+          <li><a href="index.html">ホーム</a></li>
+          <li><a href="service.html">事業紹介</a></li>
+          <li><a href="about.html">会社概要</a></li>
+          <li><a href="contact.html">お問い合わせ</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="hero-text">
+      <h2>AIで、人と企業の可能性を拡張する。</h2>
+      <p>株式会社SAIMONは、AIを活用した採用支援・教育支援を通じて、<br>「人とテクノロジーが共に成長する社会」を実現します。</p>
+    </div>
+  </section>
+
+  <section class="mission container">
+    <h2>MISSION</h2>
+    <p>AIで「人」の創造力を最大化する。生成AIが急速に広がる今、私たちは“使いこなす人”を育て、企業の成長を支援します。</p>
+  </section>
+
+  <section class="services container">
+    <h2>SERVICE</h2>
+    <ul>
+      <li>AI研修・教育事業</li>
+      <li>採用コンサルティング事業</li>
+      <li>採用動画・AIコンテンツ制作事業</li>
+    </ul>
+  </section>
+
+  <section class="message container">
+    <h2>MESSAGE</h2>
+    <p>スピードと創造性を武器に、企業の未来をデザインする。<br>
+    生成AIの力を、もっと身近に。もっと戦略的に。<br>
+    SAIMONはその最前線で伴走します。</p>
+  </section>
+
+  <div class="contact-button">
+    <a href="contact.html" class="btn">お問い合わせはこちら</a>
+  </div>
+
+  <footer class="site-footer">
+    <p>© 2025 株式会社SAIMON. All Rights Reserved.</p>
+  </footer>
+</body>
+</html>

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>会社概要｜株式会社SAIMON</title>
+  <meta name="description" content="株式会社SAIMONの会社概要ページ。AIを活用して人と企業の成長を支援する次世代型コンサルティング企業です。">
+  <link rel="stylesheet" href="css/style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+  <header class="site-header">
+    <div class="container">
+      <h1 class="logo"><a href="index.html">株式会社SAIMON</a></h1>
+      <nav>
+        <ul>
+          <li><a href="index.html">ホーム</a></li>
+          <li><a href="service.html">事業紹介</a></li>
+          <li><a href="about.html" class="active">会社概要</a></li>
+          <li><a href="contact.html">お問い合わせ</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <section class="page-hero">
+    <div class="page-hero-text">
+      <h2>会社概要</h2>
+      <p>AIと人の力で、企業の未来をデザインする。</p>
+    </div>
+  </section>
+
+  <main class="container">
+
+    <section class="message-section">
+      <h2>代表メッセージ</h2>
+      <p>
+        AIの発展は、人の可能性を奪うものではなく、<br>
+        むしろ「想像力を拡張する力」だと私たちは考えています。<br><br>
+        SAIMONは、AIを活用して企業と人が共に成長できる仕組みをつくり、<br>
+        新しい働き方と学びの形を提案していきます。<br><br>
+        株式会社SAIMON<br>
+        代表取締役　<strong>齋本竜也</strong>
+      </p>
+    </section>
+
+    <section class="company-info">
+      <h2>会社情報</h2>
+      <table>
+        <tr>
+          <th>会社名</th><td>株式会社SAIMON</td>
+        </tr>
