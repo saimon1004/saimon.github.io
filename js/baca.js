@@ -62,11 +62,9 @@ document.querySelectorAll('.level-card, .certificate-card, .feature-card, .info-
     observer.observe(el);
 });
 
-// ===== Contact Form Handling with Make.com Webhook =====
+// ===== Contact Form Handling with Notion Integration =====
 const contactForm = document.getElementById('contactForm');
-
-// Make.com WebhookのURL（後で設定）
-const WEBHOOK_URL = 'YOUR_MAKE_WEBHOOK_URL';
+const formStatus = document.getElementById('formStatus');
 
 if (contactForm) {
     contactForm.addEventListener('submit', async (e) => {
@@ -78,6 +76,8 @@ if (contactForm) {
         // Show loading state
         submitButton.textContent = '送信中...';
         submitButton.disabled = true;
+        formStatus.className = 'form-status';
+        formStatus.textContent = '';
         
         try {
             // Get form data
@@ -85,31 +85,59 @@ if (contactForm) {
                 name: document.getElementById('name').value,
                 company: document.getElementById('company').value || '（未記入）',
                 email: document.getElementById('email').value,
-                message: document.getElementById('message').value,
-                timestamp: new Date().toISOString()
+                message: document.getElementById('message').value
             };
             
-            // Send to Make.com Webhook
-            const response = await fetch(WEBHOOK_URL, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(formData)
+            // Submit to Notion form
+            const notionFormUrl = 'https://swift-gull-31f.notion.site/ebd/29ba2dd90ded8097b4e4cd50325db8ac';
+            
+            // Create a hidden iframe to submit to Notion
+            const iframe = document.createElement('iframe');
+            iframe.style.display = 'none';
+            iframe.name = 'notion-form-target';
+            document.body.appendChild(iframe);
+            
+            // Create a temporary form
+            const tempForm = document.createElement('form');
+            tempForm.target = 'notion-form-target';
+            tempForm.method = 'POST';
+            tempForm.action = notionFormUrl;
+            
+            // Add form fields (matching Notion form field names)
+            const fields = {
+                'お名前': formData.name,
+                '会社名': formData.company,
+                'メールアドレス': formData.email,
+                'お問い合わせ内容': formData.message
+            };
+            
+            Object.keys(fields).forEach(key => {
+                const input = document.createElement('input');
+                input.type = 'hidden';
+                input.name = key;
+                input.value = fields[key];
+                tempForm.appendChild(input);
             });
             
-            if (response.ok) {
-                // Success
-                alert('お問い合わせありがとうございます。\n内容を確認の上、ご連絡させていただきます。');
-                contactForm.reset();
-            } else {
-                // Error
-                throw new Error('送信に失敗しました');
-            }
+            document.body.appendChild(tempForm);
+            tempForm.submit();
+            
+            // Clean up
+            setTimeout(() => {
+                document.body.removeChild(tempForm);
+                document.body.removeChild(iframe);
+            }, 1000);
+            
+            // Show success message
+            formStatus.className = 'form-status success';
+            formStatus.textContent = 'お問い合わせありがとうございます。内容を確認の上、ご連絡させていただきます。';
+            contactForm.reset();
+            
         } catch (error) {
-            // Network error or other error
+            // Show error message
             console.error('Form submission error:', error);
-            alert('送信に失敗しました。\n恐れ入りますが、時間をおいて再度お試しいただくか、直接メールでご連絡ください。');
+            formStatus.className = 'form-status error';
+            formStatus.textContent = '送信に失敗しました。恐れ入りますが、時間をおいて再度お試しください。';
         } finally {
             // Restore button state
             submitButton.textContent = originalText;
