@@ -75,23 +75,45 @@ document.querySelectorAll('.level-card, .certificate-card, .feature-card, .info-
 const contactForm = document.getElementById('contactForm');
 
 if (contactForm) {
-    contactForm.addEventListener('submit', (e) => {
+    contactForm.addEventListener('submit', async (e) => {
         e.preventDefault();
         
-        // Get form data
-        const formData = {
-            name: document.getElementById('name').value,
-            company: document.getElementById('company').value,
-            email: document.getElementById('email').value,
-            message: document.getElementById('message').value
-        };
+        const submitButton = contactForm.querySelector('.btn-submit');
+        const originalText = submitButton.textContent;
         
-        // Here you would typically send the data to a server
-        // For now, we'll just show an alert
-        alert('お問い合わせありがとうございます。\n内容を確認の上、ご連絡させていただきます。');
+        // Show loading state
+        submitButton.textContent = '送信中...';
+        submitButton.disabled = true;
         
-        // Reset form
-        contactForm.reset();
+        try {
+            // Get form data
+            const formData = new FormData(contactForm);
+            
+            // Send to Formspree
+            const response = await fetch(contactForm.action, {
+                method: 'POST',
+                body: formData,
+                headers: {
+                    'Accept': 'application/json'
+                }
+            });
+            
+            if (response.ok) {
+                // Success
+                alert('お問い合わせありがとうございます。\n内容を確認の上、ご連絡させていただきます。');
+                contactForm.reset();
+            } else {
+                // Error
+                alert('送信に失敗しました。\nもう一度お試しいただくか、直接メールでご連絡ください。');
+            }
+        } catch (error) {
+            // Network error
+            alert('送信に失敗しました。\nインターネット接続を確認してください。');
+        } finally {
+            // Restore button state
+            submitButton.textContent = originalText;
+            submitButton.disabled = false;
+        }
     });
 }
 
