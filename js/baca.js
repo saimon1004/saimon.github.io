@@ -62,9 +62,12 @@ document.querySelectorAll('.level-card, .certificate-card, .feature-card, .info-
     observer.observe(el);
 });
 
-// ===== Contact Form Handling with Notion Integration =====
+// ===== Contact Form Handling with API =====
 const contactForm = document.getElementById('contactForm');
 const formStatus = document.getElementById('formStatus');
+
+// API endpoint
+const API_ENDPOINT = 'https://5000-iep5mpwps9k3r7ts9k0ek-c0432ffe.manus-asia.computer/api/contact';
 
 if (contactForm) {
     contactForm.addEventListener('submit', async (e) => {
@@ -83,61 +86,37 @@ if (contactForm) {
             // Get form data
             const formData = {
                 name: document.getElementById('name').value,
-                company: document.getElementById('company').value || '（未記入）',
+                company: document.getElementById('company').value || '',
                 email: document.getElementById('email').value,
                 message: document.getElementById('message').value
             };
             
-            // Submit to Notion form
-            const notionFormUrl = 'https://swift-gull-31f.notion.site/ebd/29ba2dd90ded8097b4e4cd50325db8ac';
-            
-            // Create a hidden iframe to submit to Notion
-            const iframe = document.createElement('iframe');
-            iframe.style.display = 'none';
-            iframe.name = 'notion-form-target';
-            document.body.appendChild(iframe);
-            
-            // Create a temporary form
-            const tempForm = document.createElement('form');
-            tempForm.target = 'notion-form-target';
-            tempForm.method = 'POST';
-            tempForm.action = notionFormUrl;
-            
-            // Add form fields (matching Notion form field names)
-            const fields = {
-                'お名前': formData.name,
-                '会社名': formData.company,
-                'メールアドレス': formData.email,
-                'お問い合わせ内容': formData.message
-            };
-            
-            Object.keys(fields).forEach(key => {
-                const input = document.createElement('input');
-                input.type = 'hidden';
-                input.name = key;
-                input.value = fields[key];
-                tempForm.appendChild(input);
+            // Send to API
+            const response = await fetch(API_ENDPOINT, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(formData)
             });
             
-            document.body.appendChild(tempForm);
-            tempForm.submit();
+            const result = await response.json();
             
-            // Clean up
-            setTimeout(() => {
-                document.body.removeChild(tempForm);
-                document.body.removeChild(iframe);
-            }, 1000);
-            
-            // Show success message
-            formStatus.className = 'form-status success';
-            formStatus.textContent = 'お問い合わせありがとうございます。内容を確認の上、ご連絡させていただきます。';
-            contactForm.reset();
+            if (response.ok && result.success) {
+                // Show success message
+                formStatus.className = 'form-status success';
+                formStatus.textContent = 'お問い合わせありがとうございます。内容を確認の上、2営業日以内にご連絡させていただきます。';
+                contactForm.reset();
+            } else {
+                // Show error message
+                throw new Error(result.error || '送信に失敗しました');
+            }
             
         } catch (error) {
             // Show error message
             console.error('Form submission error:', error);
             formStatus.className = 'form-status error';
-            formStatus.textContent = '送信に失敗しました。恐れ入りますが、時間をおいて再度お試しください。';
+            formStatus.textContent = '送信に失敗しました。恐れ入りますが、時間をおいて再度お試しいただくか、直接メールでご連絡ください。';
         } finally {
             // Restore button state
             submitButton.textContent = originalText;
