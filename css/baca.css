@@ -687,6 +687,22 @@ section {
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
 }
 
+.notion-form-container {
+    background: var(--color-neutral);
+    padding: 2rem;
+    border-radius: 20px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+    overflow: hidden;
+}
+
+.notion-form-container iframe {
+    display: block;
+    width: 100%;
+    min-height: 800px;
+    border: none;
+    border-radius: 8px;
+}
+
 .form-group {
     margin-bottom: 1.8rem;
 }
@@ -900,5 +916,13 @@ section {
     
     .contact-form {
         padding: 2rem;
+    }
+    
+    .notion-form-container {
+        padding: 1rem;
+    }
+    
+    .notion-form-container iframe {
+        min-height: 700px;
     }
 }
