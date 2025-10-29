@@ -94,11 +94,16 @@ nav a.active {
   font-size: 2.5rem;
   margin-bottom: 20px;
   line-height: 1.4;
+  color: #ffffff;
+  text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.7);
+  font-weight: 700;
 }
 
 .hero-text p {
   font-size: 1.2rem;
   line-height: 1.8;
+  color: #ffffff;
+  text-shadow: 1px 1px 6px rgba(0, 0, 0, 0.7);
 }
 
 /* ====== コンテンツセクション共通 ====== */
