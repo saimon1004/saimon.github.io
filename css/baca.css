@@ -698,7 +698,7 @@ section {
 .notion-form-container iframe {
     display: block;
     width: 100%;
-    min-height: 800px;
+    min-height: 600px;
     border: none;
     border-radius: 8px;
 }
@@ -923,6 +923,6 @@ section {
     }
     
     .notion-form-container iframe {
-        min-height: 700px;
+        min-height: 600px;
     }
 }
